@@ -76,7 +76,7 @@ public class NodeNormalizer implements RecursionOp {
         for(SimpleOrderedMap<Object> bucket : runner.buckets)
         {
             SimpleOrderedMap<String> facetResult = runner.adapter.getMapValue(bucket);
-            if(MapUtility.mapContainsValue(requestValue.toLowerCase(), facetResult))
+            if(MapUtility.mapContainsValue(requestValue.toLowerCase(Locale.ROOT), facetResult))
             {
                 normalizedStrings.add(runner.adapter.getStringValue(bucket));
                 normalizedMaps.add(runner.adapter.getMapValue(bucket));
@@ -111,7 +111,7 @@ public class NodeNormalizer implements RecursionOp {
                             context.req.getSearcher().getDocListAndSet(new MatchAllDocsQuery(),
                                     context.queryDomain, Sort.INDEXORDER, 0, 0);
                 }
-                String facetQuery = buildFacetQuery(adapter.baseField, request.values[k].toLowerCase());
+                String facetQuery = buildFacetQuery(adapter.baseField, request.values[k].toLowerCase(Locale.ROOT));
                 runners.add(new AggregationWaitable(context, adapter, facetQuery, adapter.field, k, DEFAULT_NORM_LIMIT));
             }
         }

@@ -47,7 +47,7 @@ public class QueryRunnerFactory
             for (int k = 0; k < response.values.length; ++k)
             {
                 runners.add(buildRunner(domain, type,
-                        field, response.values[k].value.toLowerCase().trim(), k));
+                        field, response.values[k].value.toLowerCase(Locale.ROOT).trim(), k));
             }
         }
         else
@@ -55,7 +55,7 @@ public class QueryRunnerFactory
             for (Integer k : fallbackIndices)
             {
                 runners.add(buildRunner(domain, type,
-                        field, response.values[k].value.toLowerCase().trim(), k));
+                        field, response.values[k].value.toLowerCase(Locale.ROOT).trim(), k));
             }
         }
         return runners;

@@ -48,21 +48,21 @@ public class SortUtility
 
     private static void sortByRelatedness(List<ResponseValue> values)
     {
-        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.relatedness).thenComparing((ResponseValue val) -> val.value.toLowerCase()));
+        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.relatedness).thenComparing((ResponseValue val) -> val.value.toLowerCase(Locale.ROOT)));
     }
 
     private static void sortByFG(List<ResponseValue> values)
     {
-        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.foreground_popularity).thenComparing((ResponseValue val) -> val.value.toLowerCase()));
+        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.foreground_popularity).thenComparing((ResponseValue val) -> val.value.toLowerCase(Locale.ROOT)));
     }
 
     private static void sortByBG(List<ResponseValue> values)
     {
-        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.background_popularity).thenComparing((ResponseValue val) -> val.value.toLowerCase()));
+        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.background_popularity).thenComparing((ResponseValue val) -> val.value.toLowerCase(Locale.ROOT)));
     }
 
     private static void sortByPopularity(List<ResponseValue> values)
     {
-        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.popularity).thenComparing((ResponseValue val) -> val.value.toLowerCase()));
+        Collections.sort(values, Comparator.comparing((ResponseValue val) -> -1 * val.popularity).thenComparing((ResponseValue val) -> val.value.toLowerCase(Locale.ROOT)));
     }
 }
