@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+	<info organisation="org.apache.solr"
+		module="solr-semantic-knowledge-graph">
+	</info>
+	<configurations defaultconfmapping="compile->master;test->master">
+		<conf name="compile" transitive="false"/>
+    <conf name="test" transitive="false"/>
+	</configurations>
+	<dependencies>
+		<dependency org="com.google.code.gson" name="gson" rev="1.7.1" force="true" conf="compile"/>
+		<dependency org="org.jmockit" name="jmockit" rev="1.8" force="true" conf="compile"/>
+	
+		<exclude org="*" ext="*" matcher="regexp" type="${ivy.exclude.types}"/>
+	</dependencies>
+</ivy-module>

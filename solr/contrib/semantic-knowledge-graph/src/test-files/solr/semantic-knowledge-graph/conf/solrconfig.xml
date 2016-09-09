@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+  <luceneMatchVersion>${tests.luceneMatchVersion:LATEST}</luceneMatchVersion>
+  <dataDir>${solr.data.dir:}</dataDir>
+  <directoryFactory name="DirectoryFactory" 
+                    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}">    
+  </directoryFactory> 
+  <codecFactory class="solr.SchemaCodecFactory"/>
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+  <jmx />
+
+  <updateHandler class="solr.DirectUpdateHandler2">
+	<autoSoftCommit>
+       <maxTime>100000</maxTime>
+    </autoSoftCommit>
+
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
+  </updateHandler>
+  
+  <query>
+    <useColdSearcher>false</useColdSearcher>
+    <maxWarmingSearchers>2</maxWarmingSearchers>
+  </query>
+  <requestDispatcher handleSelect="false" />
+
+  <requestHandler name="/select" class="solr.SearchHandler">
+     <lst name="defaults">
+       <str name="echoParams">explicit</str>
+       <str name="omitHeader">true</str>
+       <int name="rows">10</int>
+       <str name="df">text</str>
+       <str name="q.op">AND</str>
+       <str name="wt">json</str>
+       <str name="indent">true</str>
+     </lst>
+    </requestHandler>
+
+	<queryResponseWriter name="skg" class="org.apache.solr.search.skg.responsewriter.KnowledgeGraphResponseWriter"/>
+	
+  	<requestHandler name="/rel" class="org.apache.solr.search.skg.KnowledgeGraphHandler">
+		<lst name="defaults">
+			<str name="df">content</str>
+			<str name="defType">edismax</str>
+		</lst>
+		<lst name="invariants">
+			<!-- fallback field defines which field to query in case foreground returns less
+				 than min_popularity -->
+			<str name="field.v1.fallback">content</str>
+			<str name="wt">skg</str>
+			<!-- default facet fields. these map search fields to facet fields by appending to the search field.--> 
+			<str name="field.v1.facet-field">id-name</str>
+			<!-- key value for searching search fields based on generated nodes. should be a facet value.
+				 e.g. key = id implies when faceting, the id value will be used to search and score the generated node-->
+			<str name="field.v1.key">id</str>
+		</lst>
+	</requestHandler>
+
+  <requestHandler name="/update" class="solr.UpdateRequestHandler" >
+	<lst name="defaults">
+	  <bool name="f.field.v1.split">true</bool>
+      <str name="f.field.v1.encapsulator">"</str>
+      <str name="f.field.v1.separator">|</str>
+	  <bool name="f.field.v1.id-name.split">true</bool>
+      <str name="f.field.v1.id-name.encapsulator">"</str>
+      <str name="f.field.v1.id-name.separator">|</str>
+	</lst>
+
+  </requestHandler>
+
+  <requestHandler name="/analysis/field" 
+                  startup="lazy"
+                  class="solr.FieldAnalysisRequestHandler" />
+
+  <requestHandler name="/analysis/document" 
+                  class="solr.DocumentAnalysisRequestHandler" 
+                  startup="lazy" />
+
+  <!--<requestHandler name="/admin/" 
+                  class="solr.admin.AdminHandlers" /> -->
+  
+  <!-- ping/healthcheck -->
+  <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+    <lst name="invariants">
+      <str name="q">solrpingquery</str>
+    </lst>
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+    </lst>
+    <str name="healthcheckFile">server-enabled</str>
+  </requestHandler>
+  
+
+  <requestHandler name="/replication" class="solr.ReplicationHandler" /> 
+
+  <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
+  
+  <searchComponent name="terms" class="solr.TermsComponent"/>
+
+  <!-- A request handler for demonstrating the terms component -->
+  <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
+     <lst name="defaults">
+      <bool name="terms">true</bool>
+      <bool name="distrib">false</bool>
+    </lst>     
+    <arr name="components">
+      <str>terms</str>
+    </arr>
+  </requestHandler>
+  
+  
+  <admin>
+    <defaultQuery>*:*</defaultQuery>
+  </admin>
+
+</config>
