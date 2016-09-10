@@ -22,6 +22,7 @@ import org.apache.solr.search.skg.model.SortType;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class SortUtility
 {

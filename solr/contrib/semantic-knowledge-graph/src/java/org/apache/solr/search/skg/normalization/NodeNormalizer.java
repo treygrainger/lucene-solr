@@ -32,9 +32,11 @@ import org.apache.solr.common.util.SimpleOrderedMap;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.Future;
+
 
 public class NodeNormalizer implements RecursionOp {
 

@@ -23,6 +23,7 @@ import org.apache.solr.search.skg.model.ResponseNode;
 import org.apache.solr.search.skg.model.ResponseValue;
 import org.apache.solr.search.skg.normalization.NodeNormalizer;
 import org.apache.solr.search.skg.scoring.NodeScorer;
+import java.util.Locale;
 
 import java.io.IOException;
 

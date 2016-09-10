@@ -26,6 +26,7 @@ import org.apache.solr.search.DocSet;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class QueryRunnerFactory
 {
