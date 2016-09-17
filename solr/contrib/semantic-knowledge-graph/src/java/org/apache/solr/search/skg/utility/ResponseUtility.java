@@ -63,7 +63,7 @@ public class ResponseUtility {
     {
         return new LinkedList<>(
                 (Arrays.stream(requestValues == null ? new String[0] : requestValues).collect(
-                        Collectors.toMap(String::toLowerCase, s -> s, (first, second) -> first))
+                        Collectors.toMap(input -> input.toLowerCase(Locale.ROOT), s -> s, (first, second) -> first))
                         .values()));
     }
 
